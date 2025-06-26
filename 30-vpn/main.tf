@@ -1,4 +1,3 @@
-
 # resource "aws_key_pair" "openvpn" {
 #     key_name = "openvpn"
 #     public_key = file("C:\\Vamsi-Devops\\vamsi.pub")
