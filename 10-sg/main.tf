@@ -18,7 +18,7 @@ module "bastion" {
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
 }
 
-#bastion accepting connection from my laptop
+#bastion accepting connection from my laptop through ssh 
 resource "aws_security_group_rule" "bastion_laptop" {
   type              = "ingress"
   from_port         = 22
@@ -103,4 +103,89 @@ resource "aws_security_group_rule" "backend_alb_vpn" {
   protocol                 = "tcp"
   source_security_group_id = module.vpn.sg_id
   security_group_id        = module.backend_alb.sg_id
+}
+
+##Mongodb security group
+module "mongodb" {
+  #source = "../../terraform-aws-securitygroup"
+  source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
+  project        = var.project
+  environment    = var.environment
+  sg_name        = var.mongodb_sg
+  sg_description = var.mongodb_sg_description
+  vpc_id         = data.aws_ssm_parameter.vpc_id.value
+}
+
+resource "aws_security_group_rule" "mongodb_vpn_ssh" {
+  count = length(var.mongodb_ports_vpn)
+  type                     = "ingress"
+  from_port                = var.mongodb_ports_vpn[count.index]
+  to_port                  = var.mongodb_ports_vpn[count.index]
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id        = module.mongodb.sg_id
+}
+
+
+##Redis security group
+module "redis" {
+  #source = "../../terraform-aws-securitygroup"
+  source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
+  project        = var.project
+  environment    = var.environment
+  sg_name        = var.redis_sg
+  sg_description = var.redis_sg_description
+  vpc_id         = data.aws_ssm_parameter.vpc_id.value
+}
+
+resource "aws_security_group_rule" "redis_vpn_ssh" {
+  count = length(var.redis_ports_vpn)
+  type                     = "ingress"
+  from_port                = var.redis_ports_vpn[count.index]
+  to_port                  = var.redis_ports_vpn[count.index]
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id        = module.redis.sg_id
+}
+
+##MySQL security group
+module "mysql" {
+  #source = "../../terraform-aws-securitygroup"
+  source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
+  project        = var.project
+  environment    = var.environment
+  sg_name        = var.mysql_sg
+  sg_description = var.mysql_sg_description
+  vpc_id         = data.aws_ssm_parameter.vpc_id.value
+}
+
+resource "aws_security_group_rule" "mysql_vpn_ssh" {
+  count = length(var.mysql_ports_vpn)
+  type                     = "ingress"
+  from_port                = var.mysql_ports_vpn[count.index]
+  to_port                  = var.mysql_ports_vpn[count.index]
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id        = module.mysql.sg_id
+}
+
+##rabbitmq security group
+module "rabbitmq" {
+  #source = "../../terraform-aws-securitygroup"
+  source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
+  project        = var.project
+  environment    = var.environment
+  sg_name        = var.rabbitmq_sg
+  sg_description = var.rabbitmq_sg_description
+  vpc_id         = data.aws_ssm_parameter.vpc_id.value
+}
+
+resource "aws_security_group_rule" "rabbitmq_vpn_ssh" {
+  count = length(var.rabbitmq_ports_vpn)
+  type                     = "ingress"
+  from_port                = var.rabbitmq_ports_vpn[count.index]
+  to_port                  = var.rabbitmq_ports_vpn[count.index]
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id        = module.rabbitmq.sg_id
 }
