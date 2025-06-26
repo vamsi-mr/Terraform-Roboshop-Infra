@@ -12,7 +12,7 @@ resource "aws_instance" "mongodb" {
   )
 }
 
-resource "terrafrom_data" "mongodb" {
+resource "terraform_data" "mongodb" {
   triggers_replace = [
     aws_instance.mongodb.id
   ]
@@ -25,7 +25,7 @@ resource "terrafrom_data" "mongodb" {
   }
 
   provisioner "file" {
-    source      = bootstrap.sh
+    source      = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
 
