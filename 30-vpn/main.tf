@@ -10,7 +10,7 @@ resource "aws_instance" "vpn" {
   vpc_security_group_ids = [local.vpn_sg_id]
   subnet_id              = local.public_subnet_id
   #key_name = aws_key_pair.openvpn.key_name
-  key_name  = "Linux-KP"
+  key_name  = "Vamsi-KP"
   user_data = file("openvpn.sh")
 
   tags = merge(
