@@ -5,7 +5,7 @@ terraform {
       version = "5.98.0"
     }
   }
-  
+
   backend "s3" {
     bucket       = "ravada-tf-remote-state-dev"
     key          = "roboshop-dbs-dev"
