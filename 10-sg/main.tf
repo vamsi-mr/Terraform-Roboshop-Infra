@@ -117,7 +117,7 @@ module "mongodb" {
 }
 
 resource "aws_security_group_rule" "mongodb_vpn_ssh" {
-  count = length(var.mongodb_ports_vpn)
+  count                    = length(var.mongodb_ports_vpn)
   type                     = "ingress"
   from_port                = var.mongodb_ports_vpn[count.index]
   to_port                  = var.mongodb_ports_vpn[count.index]
@@ -139,7 +139,7 @@ module "redis" {
 }
 
 resource "aws_security_group_rule" "redis_vpn_ssh" {
-  count = length(var.redis_ports_vpn)
+  count                    = length(var.redis_ports_vpn)
   type                     = "ingress"
   from_port                = var.redis_ports_vpn[count.index]
   to_port                  = var.redis_ports_vpn[count.index]
@@ -160,7 +160,7 @@ module "mysql" {
 }
 
 resource "aws_security_group_rule" "mysql_vpn_ssh" {
-  count = length(var.mysql_ports_vpn)
+  count                    = length(var.mysql_ports_vpn)
   type                     = "ingress"
   from_port                = var.mysql_ports_vpn[count.index]
   to_port                  = var.mysql_ports_vpn[count.index]
@@ -181,7 +181,7 @@ module "rabbitmq" {
 }
 
 resource "aws_security_group_rule" "rabbitmq_vpn_ssh" {
-  count = length(var.rabbitmq_ports_vpn)
+  count                    = length(var.rabbitmq_ports_vpn)
   type                     = "ingress"
   from_port                = var.rabbitmq_ports_vpn[count.index]
   to_port                  = var.rabbitmq_ports_vpn[count.index]
