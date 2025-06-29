@@ -75,11 +75,11 @@ variable "mysql_ports_vpn" {
 }
 
 variable "rabbitmq_sg" {
-  default = "mysql"
+  default = "rabbitmq"
 }
 
 variable "rabbitmq_sg_description" {
-  default = "created for mysql db"
+  default = "created for rabbitmq db"
 }
 
 variable "rabbitmq_ports_vpn" {  
