@@ -14,11 +14,7 @@ variable "frontend_sg_description" {
   default = "created sg for frontend instance"
 }
 
-variable "frontend_from_port" {
-  default = [80, 443, 22]
-}
-
-variable "frontend_to_port" {
+variable "frontend_allow" {
   default = [80, 443, 22]
 }
 

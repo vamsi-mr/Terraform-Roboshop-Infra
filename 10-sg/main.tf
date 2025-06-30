@@ -10,9 +10,10 @@ module "frontend" {
 
 #creating sg rule for public to access frontend
 resource "aws_security_group_rule" "frontend_allow" {
+  count = length(var.frontend_allow)
   type              = "ingress"
-  from_port         = var.frontend_from_port
-  to_port           = var.frontend_to_port
+  from_port         = var.frontend_allow[count.index]
+  to_port           = var.frontend_allow[count.index]
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = module.frontend.sg_id
