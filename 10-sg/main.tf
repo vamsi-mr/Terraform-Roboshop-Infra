@@ -8,6 +8,17 @@ module "frontend" {
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
 }
 
+#creating sg rule for public to access frontend
+resource "aws_security_group_rule" "frontend_allow" {
+  type              = "ingress"
+  from_port         = var.frontend_from_port
+  to_port           = var.frontend_to_port
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.frontend.sg_id
+}
+
+
 module "bastion" {
   #source = "../../terraform-aws-securitygroup"
   source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
@@ -18,8 +29,8 @@ module "bastion" {
   vpc_id         = data.aws_ssm_parameter.vpc_id.value
 }
 
-#bastion accepting connection from my laptop through ssh 
-resource "aws_security_group_rule" "bastion_laptop" {
+#bastion accepting connection from my local network through ssh 
+resource "aws_security_group_rule" "bastion_local" {
   type              = "ingress"
   from_port         = 22
   to_port           = 22

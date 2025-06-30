@@ -14,6 +14,14 @@ variable "frontend_sg_description" {
   default = "created sg for frontend instance"
 }
 
+variable "frontend_from_port" {
+  default = [80, 443, 22]
+}
+
+variable "frontend_to_port" {
+  default = [80, 443, 22]
+}
+
 variable "bastion_sg_name" {
   default = "bastion"
 }
