@@ -200,3 +200,50 @@ resource "aws_security_group_rule" "rabbitmq_vpn_ssh" {
   source_security_group_id = module.vpn.sg_id
   security_group_id        = module.rabbitmq.sg_id
 }
+
+
+module "catalogue" {
+  #source = "../../terraform-aws-securitygroup"
+  source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
+  project        = var.project
+  environment    = var.environment
+  sg_name        = var.catalogue_sg
+  sg_description = var.catalogue_sg_description
+  vpc_id         = data.aws_ssm_parameter.vpc_id.value
+}
+
+resource "aws_security_group_rule" "catalogue_backend_alb" {
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  source_security_group_id = module.backend_alb.sg_id
+  security_group_id        = module.catalogue.sg_id
+}
+
+resource "aws_security_group_rule" "catalogue_vpn_ssh" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id        = module.catalogue.sg_id
+}
+
+resource "aws_security_group_rule" "catalogue_vpn_http" {
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id        = module.catalogue.sg_id
+}
+
+resource "aws_security_group_rule" "mongodb_catalogue" {
+  type                     = "ingress"
+  from_port                = 27017
+  to_port                  = 27017
+  protocol                 = "tcp"
+  source_security_group_id = module.catalogue.sg_id
+  security_group_id        = module.mongodb.sg_id
+}
