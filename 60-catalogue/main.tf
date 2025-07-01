@@ -31,13 +31,6 @@ resource "aws_instance" "catalogue" {
   )
 }
 
-resource "aws_route53_record" "catalogue" {
-  zone_id = var.zone_id
-  name    = "catalogue.${var.domain_name}"
-  type    = "A"
-  ttl     = 1
-  records = [aws_instance.catalogue.private_ip]
-}
 
 resource "terraform_data" "catalogue" {
   triggers_replace = [
@@ -59,7 +52,7 @@ resource "terraform_data" "catalogue" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/catalogue.sh",
-      "sudo sh /tmp/catalogue.sh catalogue"
+      "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
     ]
   }
 }
