@@ -6,18 +6,6 @@ variable "environment" {
   default = "dev"
 }
 
-variable "frontend_sg_name" {
-  default = "frontend"
-}
-
-variable "frontend_sg_description" {
-  default = "created sg for frontend instance"
-}
-
-variable "frontend_allow" {
-  default = [80, 443, 22]
-}
-
 variable "bastion_sg_name" {
   default = "bastion"
 }
@@ -96,4 +84,52 @@ variable "catalogue_sg" {
 
 variable "catalogue_sg_description" {
   default = "created for catalogue instances"
+}
+
+variable "user_sg" {
+  default = "user"
+}
+
+variable "user_sg_description" {
+  default = "created for user component"
+}
+
+variable "cart_sg" {
+  default = "cart"
+}
+
+variable "cart_sg_description" {
+  default = "created for cart component"
+}
+
+variable "shipping_sg" {
+  default = "shipping"
+}
+
+variable "shipping_sg_description" {
+  default = "created for shipping component"
+}
+
+variable "payment_sg" {
+  default = "payment"
+}
+
+variable "payment_sg_description" {
+  default = "created for payment component"
+}
+
+variable "frontend_alb_sg" {
+  default = "frontend-alb"
+}
+
+variable "frontend_alb_sg_description" {
+  default = "created for frontend-alb component"
+}
+
+variable "frontend_sg" {
+  default = "frontend"
+}
+
+variable "frontend_sg_description" {
+  default = "created sg for frontend instance"
 }
