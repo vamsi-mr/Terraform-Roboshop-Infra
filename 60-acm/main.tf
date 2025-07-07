@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "ravada" {
-    domain_name = "*.${var.domain_name}"
+    domain_name = "dev.${var.domain_name}"
     validation_method = "DNS"
 
     tags = merge(

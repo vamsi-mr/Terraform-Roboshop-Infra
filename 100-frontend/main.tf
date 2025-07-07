@@ -1,5 +1,5 @@
-module "user" {
+module "frontend" {
   source = "git::https://github.com/vamsi-mr/Terraform-aws-roboshop.git?ref=main"
-  component = "user"
-  rule_priority = 20
+  component = "frontend"
+  rule_priority = 30
 }

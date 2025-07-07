@@ -433,7 +433,7 @@ resource "aws_security_group_rule" "payment_vpn_http" {
   security_group_id = module.payment.sg_id
 }
 
-
+#Frontend ALB
 module "frontend_alb" {
     #source = "../../terraform-aws-securitygroup"
     source         = "git::https://github.com/vamsi-mr/Terraform-aws-securitygroup.git?ref=main"
@@ -444,7 +444,6 @@ module "frontend_alb" {
     vpc_id = data.aws_ssm_parameter.vpc_id.value
 }
 
-#Frontend ALB
 resource "aws_security_group_rule" "frontend_alb_http" {
   type              = "ingress"
   from_port         = 80
