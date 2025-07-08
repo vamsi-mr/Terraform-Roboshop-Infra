@@ -42,6 +42,10 @@ variable "mongodb_ports_vpn" {
   default = ["22", "27017"]
 }
 
+variable "mongodb_ports_bastion" {
+  default = ["22", "27017"]
+}
+
 variable "redis_sg" {
   default = "redis"
 }
@@ -51,6 +55,10 @@ variable "redis_sg_description" {
 }
 
 variable "redis_ports_vpn" {
+  default = ["22", "6379"]
+}
+
+variable "redis_ports_bastion" {
   default = ["22", "6379"]
 }
 
@@ -66,6 +74,10 @@ variable "mysql_ports_vpn" {
   default = ["22", "3306"]
 }
 
+variable "mysql_ports_bastion" {
+  default = ["22", "3306"]
+}
+
 variable "rabbitmq_sg" {
   default = "rabbitmq"
 }
@@ -75,6 +87,10 @@ variable "rabbitmq_sg_description" {
 }
 
 variable "rabbitmq_ports_vpn" {
+  default = ["22", "5672"]
+}
+
+variable "rabbitmq_ports_bastion" {
   default = ["22", "5672"]
 }
 
