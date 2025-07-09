@@ -3,7 +3,7 @@ resource "aws_instance" "bastion" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [local.bastion_sg_id]
   subnet_id              = local.public_subnet_id
-  iam_instance_profile = "TerraformAdmin"
+  iam_instance_profile = "TerraformAdmin"  ## no need to configure aws again in bastion
 
 user_data = <<-EOF
             #!/bin/bash
@@ -14,7 +14,7 @@ user_data = <<-EOF
 
 # need more for terraform
 root_block_device {
-    volume_size = 30
+    volume_size = 10
     volume_type = "gp3" # or "gp2", depending on your preference
   }
 
