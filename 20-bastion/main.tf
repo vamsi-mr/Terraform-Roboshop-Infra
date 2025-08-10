@@ -5,19 +5,12 @@ resource "aws_instance" "bastion" {
   subnet_id              = local.public_subnet_id
   iam_instance_profile = "TerraformAdmin"  ## no need to configure aws again in bastion
 
-user_data = <<-EOF
-            #!/bin/bash
-            yum install yum-utils -y
-            yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-            yum install terraform -y
-            EOF
-
 # need more for terraform
 root_block_device {
-    volume_size = 10
+    volume_size = 50
     volume_type = "gp3" # or "gp2", depending on your preference
-  }
-
+}
+user_data = file("bastion.sh")
 
   tags = merge(
     local.common_tags,
@@ -26,4 +19,3 @@ root_block_device {
     }
   )
 }
-
