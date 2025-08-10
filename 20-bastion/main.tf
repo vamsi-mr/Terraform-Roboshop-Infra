@@ -19,4 +19,3 @@ user_data = file("bastion.sh")
     }
   )
 }
-
