@@ -10,4 +10,3 @@ lvextend -L +10G /dev/RootVG/homeVol
 
 xfs_growfs /
 xfs_growfs /home
-
