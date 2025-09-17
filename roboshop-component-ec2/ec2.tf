@@ -10,10 +10,6 @@ resource "aws_instance" "Roboshop" {
       Name = "${var.instances[count.index]}"
     }
   )
-
-  provisioner "local-exec" {
-      command = "${self.private_ip} >> inventory"
-  }
 }
 
 
